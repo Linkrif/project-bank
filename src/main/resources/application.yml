@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: projectBank
+    batch:
+        initialize-schema: always
+    datasource:
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        password: sa
+        platform: mssql
+        url: jdbc:sqlserver://127.0.0.1:1433;database=PROJECTBANK;trustServerCertificate=true;
+        username: sa
+jwt:
+    token-secret: ${JWT_KEY}
+    header: Authorization
+    secret: my-very-secret-key

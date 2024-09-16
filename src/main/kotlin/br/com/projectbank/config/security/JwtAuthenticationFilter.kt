@@ -33,8 +33,8 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
             val bearerToken = request.getHeader("Authorization")
             if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
                 val token = bearerToken.substring("Bearer ".length)
-                val decodedJWT = jwtService!!.decodeToken(token)
-                val subject = decodedJWT!!.subject
+                val decodedJWT = jwtService.decodeToken(token)
+                val subject = decodedJWT.subject
                 val roles = decodedJWT.getClaim("roles").asArray(String::class.java)
                 val authorities: MutableCollection<SimpleGrantedAuthority> = ArrayList()
                 Arrays.stream(roles).forEach { role: String ->

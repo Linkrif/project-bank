@@ -27,7 +27,7 @@ class SecurityConfiguration {
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeHttpRequests()
-            .antMatchers("/login", "/login/**").permitAll()
+            .antMatchers("/api/v1/login", "/login/**","/api/v1/register").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

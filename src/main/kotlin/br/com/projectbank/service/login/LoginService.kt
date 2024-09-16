@@ -8,6 +8,6 @@ import br.com.projectbank.domain.form.RegisterForm
 
 interface LoginService {
     fun authUser(form: LoginForm): UserAuthDto
-    fun register(form: RegisterForm): UserAuthDto
+
 
 }

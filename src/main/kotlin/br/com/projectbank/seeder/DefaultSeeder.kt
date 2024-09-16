@@ -38,7 +38,6 @@ class DefaultSeeder() {
 
             admin.username = (seedAdminUsername)
             admin.password = (passwordEncoder?.encode(seedAdminPassword))
-            admin.name = ("Default Admin")
             admin.roles =(Collections.singleton(RoleEnum.ADMIN))
 
             userRepository?.save(admin)
