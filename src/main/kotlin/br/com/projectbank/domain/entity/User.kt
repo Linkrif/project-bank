@@ -6,18 +6,20 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 
-@Entity(name = "tb_user")
+@Entity(name = "tb_users")
 class User(
     @NotBlank
     @Column(unique = true)
-    var username: String? = null,
-    var password: String? = null,
-    @NotBlank
-    var name: String? = null,
+    var username: String = "",
+    var password: String= "",
+    var name : String = "",
     @ElementCollection(targetClass = RoleEnum::class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "users_profiles")
+    @CollectionTable(name = "tb_users_profiles")
     @Enumerated(EnumType.STRING)
-    var roles: Set<RoleEnum> = HashSet()
+    var roles: Set<RoleEnum> = HashSet(),
+    var blocked : Boolean,
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    var client : Client?
 ) : BaseEntity()
 {
     override fun getId() : Long{

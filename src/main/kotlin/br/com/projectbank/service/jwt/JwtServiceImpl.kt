@@ -17,20 +17,19 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.Instant
-import java.util.stream.Collectors
 
 @Service
 
 class JwtServiceImpl : JwtService {
     @Value("\${jwt.token-secret}")
-    val tokenSecret: String? = null
+    val tokenSecret: String = ""
     override fun generateUserAuth(user: User): UserAuthDto {
         val expiresAt = Instant.now().plusMillis(Duration.ofHours(TOKEN_EXPIRATION_HOURS).toMillis())
         val token: String = JWT.create()
             .withSubject(user.getId().toString())
             .withExpiresAt(expiresAt)
-            .withClaim("roles", user.roles.stream().collect(Collectors.toList()))
-            .sign(Algorithm.HMAC512(tokenSecret!!.toByteArray()))
+            .withClaim("roles", user.roles.map { it.toString() })
+            .sign(Algorithm.HMAC512(tokenSecret.toByteArray()))
         val dto = UserAuthDto()
         dto.roles = (user.roles)
         dto.token = (token)
@@ -39,7 +38,7 @@ class JwtServiceImpl : JwtService {
 
     override fun decodeToken(token: String?): DecodedJWT {
         return try {
-            val verifier: JWTVerifier = JWT.require(Algorithm.HMAC512(tokenSecret!!.toByteArray())).build()
+            val verifier: JWTVerifier = JWT.require(Algorithm.HMAC512(tokenSecret.toByteArray())).build()
             verifier.verify(token)
         } catch (ex: SignatureVerificationException) {
             log.error("Invalid JWT signature")

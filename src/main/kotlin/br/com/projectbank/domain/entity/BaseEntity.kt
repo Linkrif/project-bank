@@ -12,9 +12,10 @@ import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-abstract class BaseEntity(@Id
-                          @GeneratedValue(strategy = GenerationType.IDENTITY)
-                          val id: Long? = null) : Serializable {
+abstract class BaseEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null) : Serializable {
 
     @CreationTimestamp
     private val createdAt: LocalDateTime? = null

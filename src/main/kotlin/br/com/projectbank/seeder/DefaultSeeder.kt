@@ -13,13 +13,13 @@ import java.util.*
 
 @Service
 class DefaultSeeder() {
-    private var seedAdminUsername: String? = null
+    lateinit var seedAdminUsername: String
 
-    private var seedAdminPassword: String? = null
+    lateinit var seedAdminPassword: String
 
-    private var userRepository: UserRepository? = null
+    lateinit var userRepository: UserRepository
 
-    private var passwordEncoder: PasswordEncoder? = null
+    lateinit var passwordEncoder: PasswordEncoder
     fun DefaultSeeder( @Value("\${seed_admin_username}")  seedAdminUsername: String,
                        @Value("\${seed_admin_password}") seedAdminPassword: String,
                        userRepository: UserRepository,
@@ -32,15 +32,10 @@ class DefaultSeeder() {
     }
 
     fun seedAdmin() {
-        if (userRepository?.count() == 0L) {
+        if (userRepository.count() == 0L) {
             log.info("CREATING ADMIN SEED")
-            val admin = User()
-
-            admin.username = (seedAdminUsername)
-            admin.password = (passwordEncoder?.encode(seedAdminPassword))
-            admin.roles =(Collections.singleton(RoleEnum.ADMIN))
-
-            userRepository?.save(admin)
+            val admin = User(seedAdminUsername,passwordEncoder.encode(seedAdminPassword),"Admin User",(Collections.singleton(RoleEnum.ADMIN)),false,null)
+            userRepository.save(admin)
         }
     }
 
