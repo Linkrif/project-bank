@@ -1,4 +1,4 @@
-package br.com.projectbank.utils
+package br.com.projectbank.constants
 
 object ConstantDataManager {
 

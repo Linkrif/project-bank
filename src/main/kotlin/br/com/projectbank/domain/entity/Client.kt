@@ -19,7 +19,7 @@ class Client(
     @Column(name = "email", nullable = false)
     val email : String,
     @Column(name = "balance", nullable = false)
-    val balance : BigDecimal,
+    var balance : BigDecimal,
     @OneToOne
     @JoinColumn(name = "user_id")
     var user: User
