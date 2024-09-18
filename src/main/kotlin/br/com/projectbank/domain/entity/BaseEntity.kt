@@ -18,10 +18,10 @@ abstract class BaseEntity(
     val id: Long? = null) : Serializable {
 
     @CreationTimestamp
-    private val createdAt: LocalDateTime? = null
+    private lateinit var createdAt: LocalDateTime
 
     @UpdateTimestamp
-    private val updatedAt: LocalDateTime? = null
+    private lateinit var updatedAt: LocalDateTime
 
     companion object {
         @Serial

@@ -4,12 +4,12 @@ import java.time.Instant
 
 
 class ErrorDto(
-    private val timestamp: Instant? = null,
-    private val status: Int? = null,
-    private val error: String? = null,
-    private val message: String? = null,
-    private val path: String? = null ,
-    private val extraInfo: Any? = null
+    val timestamp: Instant? = null,
+    val status: Int? = null,
+    val error: String? = null,
+    val message: String? = null,
+    val path: String? = null ,
+    val extraInfo: Any? = null
 
 ) {
 

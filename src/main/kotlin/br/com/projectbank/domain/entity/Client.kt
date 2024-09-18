@@ -24,3 +24,6 @@ class Client(
     @JoinColumn(name = "user_id")
     var user: User
 ) : BaseEntity()
+{
+
+}

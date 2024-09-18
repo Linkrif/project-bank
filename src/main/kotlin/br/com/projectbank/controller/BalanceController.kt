@@ -1,8 +1,8 @@
 package br.com.projectbank.controller
 
-import br.com.projectbank.domain.form.DepositForm
-import br.com.projectbank.pojo.DepositPojo
-import br.com.projectbank.service.deposit.DepositService
+import br.com.projectbank.domain.form.BalanceForm
+import br.com.projectbank.pojo.BalancePojo
+import br.com.projectbank.service.balance.BalanceService
 import br.com.projectbank.constants.ConstantDataManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -15,15 +15,14 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping(ConstantDataManager.ENDPOINT_V1)
-class DepositController {
+class BalanceController {
 
     @Autowired
-    lateinit var depositService : DepositService
+    lateinit var balanceService : BalanceService
 
-    @PutMapping("/addDeposit")
-    fun addDeposit(@RequestBody form : @Valid DepositForm) : ResponseEntity<DepositPojo>{
-        return ResponseEntity.status(HttpStatus.CREATED).body(depositService.addDeposit(form))
-
+    @PutMapping("/addBalance")
+    fun addBalance(@RequestBody form : @Valid BalanceForm) : ResponseEntity<BalancePojo>{
+        return ResponseEntity.status(HttpStatus.CREATED).body(balanceService.addBalance(form))
     }
 
 

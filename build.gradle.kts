@@ -25,6 +25,7 @@ dependencies {
 	implementation("com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11")
 	implementation("net.sourceforge.jtds:jtds:1.3.1")
 	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springdoc:springdoc-openapi-ui:1.8.0")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

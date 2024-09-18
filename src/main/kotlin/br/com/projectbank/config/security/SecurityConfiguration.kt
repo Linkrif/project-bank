@@ -1,8 +1,10 @@
 package br.com.projectbank.config.security
 
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -16,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfiguration {
+
+
     @Autowired
     lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
     @Bean
@@ -28,6 +32,13 @@ class SecurityConfiguration {
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeHttpRequests()
             .antMatchers("/api/v1/login", "/login/**","/api/v1/register").permitAll()
+            .antMatchers("/swagger-ui/**",
+                "/swagger-resources/",
+                "/swagger-ui.html",
+                "/configuration/ui",
+                "/configuration/security",
+                "/v3/api-docs",
+                "/v3/api-docs/swagger-config").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

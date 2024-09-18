@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 import java.math.BigDecimal
 import javax.validation.constraints.NotBlank
 
-class DepositForm (
+class BalanceForm (
     @NotBlank(message = "field 'deposit' is null or blank")
     val deposit : BigDecimal
 )

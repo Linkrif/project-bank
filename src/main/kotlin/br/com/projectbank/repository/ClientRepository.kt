@@ -7,4 +7,6 @@ import java.util.*
 interface ClientRepository : JpaRepository<Client, Long>
 {
     override fun findById(id : Long) : Optional<Client>
+    fun findByCpf(cpf : String) : Optional<Client>
+
 }

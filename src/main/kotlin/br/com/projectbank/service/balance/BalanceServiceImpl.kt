@@ -1,13 +1,15 @@
-package br.com.projectbank.service.deposit
+package br.com.projectbank.service.balance
 
 import br.com.projectbank.constants.DepositConstant
 import br.com.projectbank.domain.entity.Client
 import br.com.projectbank.domain.entity.Deposit
-import br.com.projectbank.domain.form.DepositForm
+import br.com.projectbank.domain.entity.User
+import br.com.projectbank.domain.form.BalanceForm
 import br.com.projectbank.exception.StandardException
-import br.com.projectbank.pojo.DepositPojo
+import br.com.projectbank.pojo.BalancePojo
 import br.com.projectbank.repository.ClientRepository
 import br.com.projectbank.repository.DepositRepository
+import br.com.projectbank.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.context.SecurityContextHolder
@@ -16,24 +18,25 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 @Service
-class DepositServiceImpl : DepositService {
+class BalanceServiceImpl : BalanceService {
+    @Autowired
+    private lateinit var userRepository: UserRepository
     @Autowired
     private lateinit var clientRepository: ClientRepository
     @Autowired
     private lateinit var depositRepository: DepositRepository
 
-    override fun addDeposit(form: DepositForm) : DepositPojo {
+    override fun addBalance(form: BalanceForm) : BalancePojo {
         val clientId : Long = (SecurityContextHolder.getContext().authentication.principal).toString().toLong()
         form.validateDeposit()
-        val optionalClient =
-            clientRepository.findById(clientId)
+        val optionalUser = userRepository.findById(clientId)
 
-        if (optionalClient.isPresent) {
-            val client: Client = optionalClient.get()
-            client.balance = sumBalance(form.deposit, client.balance)
-            clientRepository.save(client)
+        if (optionalUser.isPresent) {
+            val user = optionalUser.get()
+            user.client!!.balance = sumBalance(form.deposit, user.client!!.balance)
+            clientRepository.save(user.client!!)
             depositRepository.save(Deposit(LocalDate.now(),form.deposit,clientId))
-            return DepositPojo(true,DepositConstant.EFETUADO)
+            return BalancePojo(true,DepositConstant.EFETUADO)
         } else {
             throw StandardException(DepositConstant.DEPOSIT, DepositConstant.RECUSADO, HttpStatus.BAD_REQUEST)
         }
