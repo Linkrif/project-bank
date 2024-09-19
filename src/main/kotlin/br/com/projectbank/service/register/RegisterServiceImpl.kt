@@ -10,6 +10,8 @@ import br.com.projectbank.repository.ClientRepository
 import br.com.projectbank.repository.UserRepository
 import br.com.projectbank.service.jwt.JwtService
 import br.com.projectbank.utils.AccountUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -30,7 +32,7 @@ class RegisterServiceImpl : RegisterService{
     @Autowired
     lateinit var passwordEncoder: PasswordEncoder
 
-
+    val log: Logger = LoggerFactory.getLogger(this::class.java)
     override fun register(form: RegisterForm): UserAuthDto {
         checkUserName(form.cpf)
         val user: User = createNewUser(form)
@@ -38,21 +40,23 @@ class RegisterServiceImpl : RegisterService{
     }
 
     private fun createNewUser(form: RegisterForm): User {
-
+        log.info("Validando registro")
         form.validateRegister()
+
         val newUser = User(
             form.cpf,
             passwordEncoder.encode(form.password),
             form.name,
-            Collections.singleton(RoleEnum.USER),
+            Collections.singleton(RoleEnum.CLIENT),
             false,
             null
         )
         val client = Client(AccountUtils.generateAccountCode(),form.cpf,form.name,form.birthDate,form.email,
-            BigDecimal.ZERO, newUser)
+            BigDecimal.ZERO, form.phoneNumber,newUser)
 
         userRepository.save(newUser)
         clientRepository.save(client)
+        log.info("Salvou cliente com sucesso!")
         return newUser
     }
 

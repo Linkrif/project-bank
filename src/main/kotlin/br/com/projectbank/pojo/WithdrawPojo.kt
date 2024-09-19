@@ -2,7 +2,7 @@ package br.com.projectbank.pojo
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-class TranferPojo (
+class WithdrawPojo(
     @JsonProperty("success")
     var success : Boolean,
     @JsonProperty("message")

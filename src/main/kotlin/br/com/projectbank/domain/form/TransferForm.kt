@@ -2,12 +2,13 @@ package br.com.projectbank.domain.form
 
 import br.com.projectbank.constants.DepositConstant
 import br.com.projectbank.exception.StandardException
+import org.hibernate.validator.constraints.NotBlank
 import org.springframework.http.HttpStatus
 import java.math.BigDecimal
-import javax.validation.constraints.NotBlank
+
 
 class TransferForm (
-    @NotBlank(message = "Campo: 'transferenceValue' null or blank")
+    @NotBlank(message = "Campo: 'transferValue' null or blank")
     val transferValue : BigDecimal,
     @NotBlank(message = "Campo: 'transferType' null or blank")
     val transferType : String,

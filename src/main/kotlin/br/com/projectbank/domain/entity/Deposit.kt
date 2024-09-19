@@ -9,9 +9,8 @@ import javax.persistence.*
 class Deposit (
     @Column(name = "deposit_date", nullable = false)
     var depositDate : LocalDate,
-    @Column(name = "deposit_value", nullable = false)
+    @Column(name = "deposit_value", nullable = false, precision=10, scale=2)
     val depositValue : BigDecimal,
     @Column(name = "client_id", nullable = false)
-
     val clientId : Long
 ) : BaseEntity()

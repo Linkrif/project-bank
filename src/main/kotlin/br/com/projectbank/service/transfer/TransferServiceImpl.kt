@@ -1,14 +1,18 @@
-package br.com.projectbank.service.transference
+package br.com.projectbank.service.transfer
 
 import br.com.projectbank.constants.TransferConstant
 import br.com.projectbank.domain.entity.Client
 import br.com.projectbank.domain.entity.Transfer
 import br.com.projectbank.domain.form.TransferForm
 import br.com.projectbank.exception.StandardException
-import br.com.projectbank.pojo.TranferPojo
+import br.com.projectbank.pojo.TransferPojo
 import br.com.projectbank.repository.ClientRepository
 import br.com.projectbank.repository.TransferRepository
+import br.com.projectbank.repository.UserRepository
+import br.com.projectbank.seeder.DefaultSeeder
 import br.com.projectbank.utils.security.PrincipalUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -22,10 +26,12 @@ class TransferServiceImpl : TransferService {
     private lateinit var clientRepository: ClientRepository
     @Autowired
     private lateinit var transferRepository: TransferRepository
-
-    override fun transfer(form: TransferForm) : TranferPojo {
+    @Autowired
+    private lateinit var userRepository: UserRepository
+    val log: Logger = LoggerFactory.getLogger(this::class.java)
+    override fun transfer(form: TransferForm) : TransferPojo {
         val optionalClient = clientRepository.findById(PrincipalUtils.getId())
-
+        form.validateTransference()
         if (optionalClient.isPresent) {
             val optionalClientTo = clientRepository.findByCpf(form.clientTo)
 
@@ -35,13 +41,17 @@ class TransferServiceImpl : TransferService {
             clientRepository.save(client)
 
             val clientTo: Client = optionalClientTo.get()
-            if(optionalClientTo.isPresent){
+            /*Valida se o usuario que vai receber está bloqueado e presente no objeto optionalClient, antes de fazer a transferencia*/
+            if(optionalClientTo.isPresent && !userRepository.userIsBlocked(form.clientTo)){
                 clientTo.balance += form.transferValue
                 clientRepository.save(clientTo)
                 transferRepository.save(Transfer(LocalDate.now(),form.transferValue,PrincipalUtils.getId(),clientTo.getId(),form.transferType))
+                log.info("Transferencia executada com sucesso!")
+            } else {
+                throw StandardException(TransferConstant.TRANSFERENCE, TransferConstant.RECUSADO, HttpStatus.BAD_REQUEST)
             }
 
-            return TranferPojo(true, TransferConstant.EFETUADO)
+            return TransferPojo(true, TransferConstant.EFETUADO)
         } else {
             throw StandardException(TransferConstant.TRANSFERENCE, TransferConstant.RECUSADO, HttpStatus.BAD_REQUEST)
         }

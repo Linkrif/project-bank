@@ -25,6 +25,7 @@ class LoginServiceImpl : LoginService{
 
     override fun authUser(form: LoginForm): UserAuthDto {
         val user: User = userRepository.findByUsername(form.username)
+
         checkPassword(user, form.password)
         return jwtService.generateUserAuth(user)
     }
