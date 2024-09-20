@@ -8,6 +8,9 @@ Acesse o endpoint para documentacao:
   
 foi implementado Banco H2 para os testes de integração
 - [Banco H2](http://localhost:8080/h2-console)
+- caminho do banco: jdbc:h2:mem:PROJECTBANK
+- User sa 
+- Password sa 
   
 O banco é salvo em memoria, somente para testes.
 
