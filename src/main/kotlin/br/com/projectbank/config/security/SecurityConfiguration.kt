@@ -38,7 +38,8 @@ class SecurityConfiguration {
                 "/configuration/ui",
                 "/configuration/security",
                 "/v3/api-docs",
-                "/v3/api-docs/swagger-config").permitAll()
+                "/v3/api-docs/swagger-config",
+                "/h2-console/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -1,25 +1,42 @@
+logging:
+    level:
+        org.springframework.data.r2dbc: DEBUG
 spring:
     application:
         name: projectBank
     batch:
         initialize-schema: always
     datasource:
-        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        driver-class-name: org.h2.Driver
         password: sa
-        platform: mssql
-        url: jdbc:sqlserver://127.0.0.1:1433;database=PROJECTBANK;trustServerCertificate=true;
-        username: sa
+        url: jdbc:h2:mem:PROJECTBANK
+        username: ${DBUSER:sa}
+
+
     jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
         hibernate:
             ddl-auto: update
+        properties:
+            hibernate:
+                show_sql: false
+                format_sql: true
+        defer-datasource-initialization: true
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
 server:
     error:
         include-binding-errors: always
         include-message: always
 
 jwt:
-    token-secret: ${JWT_KEY}
+    token-secret: ${JWT_KEY:teste}
+
     header: Authorization
     secret: my-very-secret-key
+
+
 
 
