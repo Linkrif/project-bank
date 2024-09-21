@@ -6,7 +6,8 @@ Para iniciar o projeto basta rodar na pasta raiz do projeto:
 docker-compose -f .\docker-compose\docker-compose.yml up 
 ```
 
-Acesse o endpoint para documentacao:
+Acesse o endpoint para documentação:
+
 - [Swagger Ui](http://localhost:8080/swagger-ui/index.html)
 
   
@@ -25,7 +26,8 @@ Projetado para atender as principais movimentações de uma conta
 Em todas as transferências, o sistema alimenta as tabelas de histórico(seja um dos três citados acima).
 
 ### :bookmark_tabs: Fluxo e algumas tomadas de decições
-https://miro.com/app/board/uXjVLfeMqNs=/?share_link_id=581401714076&shareablePresentation=1
+- [Miro](https://miro.com/app/board/uXjVLfeMqNs=/?share_link_id=581401714076&shareablePresentation=1)
+
 
 Bibliotecas e conceitos aplicados no projeto :
 
