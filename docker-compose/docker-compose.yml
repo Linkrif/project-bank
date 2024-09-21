@@ -1,0 +1,39 @@
+services:
+  project-bank:
+
+    container_name: project-bank
+    volumes:
+      - "project-bank:/app/logs"
+    build:
+      context: ../
+    image: projectbank-service
+    ports:
+      - 8080:8080
+    environment:
+      JAR: projectbank.jar
+      DBSERVER: 100.0.0.3
+
+    restart: always
+    networks:
+      custom_net:
+        ipv4_address: 100.0.0.2
+  sql-server:
+    container_name: sql-server
+    build: ./database
+    expose:
+      - "1433:1433"
+    ports:
+      - "1433:1433"
+    networks :
+      custom_net:
+        ipv4_address: 100.0.0.3
+volumes:
+  project-bank:
+
+networks:
+  custom_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 100.0.0.0/16
+          gateway: 100.0.0.1

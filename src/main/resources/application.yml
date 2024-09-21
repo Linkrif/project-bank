@@ -7,25 +7,18 @@ spring:
     batch:
         initialize-schema: always
     datasource:
-        driver-class-name: org.h2.Driver
-        password: sa
-        url: jdbc:h2:mem:PROJECTBANK
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        password: ${DBPASSWORD:Teste123}
+        url: jdbc:sqlserver://${DBSERVER:${CONTAINER_IP:127.0.0.1}}:${DBPORT:1433};database=${DBSERVER_NAME:ProjectBank};trustServerCertificate=true;
         username: ${DBUSER:sa}
-
-
     jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
         hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                show_sql: false
-                format_sql: true
-        defer-datasource-initialization: true
-    h2:
-        console:
-            enabled: true
-            path: /h2-console
+            # CREATE-DROP PARA TESTES, SEMPRE QUE INICIAR ELE VAI FAZER UM CREATE E DROP DA TABELA.
+            # UPDATE - Preenche os campos do bd
+            #Samuel
+            ddl-auto: ${JPA_DDL_AUTO:update}
+            database: ${DBSERVER_NAME:ProjectBank}
+            show-sql: true
 server:
     error:
         include-binding-errors: always
