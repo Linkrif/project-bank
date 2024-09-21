@@ -13,9 +13,13 @@ Acesse o endpoint para documentacao:
 Funcionalidades
 
 Projetado para atender as principais movimentações de uma conta
+
 > DEPÓSITO
+> 
 > SAQUE
+> 
 > TRANSFERÊNCIA
+>
 
 
 Em todas as transferências, o sistema alimenta as tabelas de histórico(seja um dos três citados acima).
