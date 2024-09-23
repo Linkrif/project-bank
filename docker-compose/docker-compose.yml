@@ -12,7 +12,7 @@ services:
     environment:
       JAR: projectbank.jar
       DBSERVER: 100.0.0.3
-
+      DBPASSWORD: Teste123
     restart: always
     networks:
       custom_net:
