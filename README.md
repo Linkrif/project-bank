@@ -1,4 +1,4 @@
-## Project Bank
+# _Project Bank_
 
 Para iniciar o projeto basta rodar na pasta raiz do projeto:
 
@@ -29,16 +29,20 @@ Em todas as transferências, o sistema alimenta as tabelas de histórico(seja um
 - [Miro](https://miro.com/app/board/uXjVLfeMqNs=/?share_link_id=581401714076&shareablePresentation=1)
 
 
-Bibliotecas e conceitos aplicados no projeto :
+### **_Bibliotecas e conceitos aplicados no projeto_ :**
 
-Spring Data JPA
+1. **Spring Data JPA**
+2. **Spring Boot Web**
+3. **Spring Boot Security - Geração de token OAuth JWT para controle das requisições, mantenho o usuario no payload pra uso nas seguintes requisições**
+4. **Swagger UI - (Para documentar e testes de integração)**
+5. **O projeto foi estruturado no padrão repository.**
+6. **Microsoft SQL Server**
+7. **Clean Code** 
+8. **Docker Compose**
 
-Spring Boot Web
 
-Spring Boot Security - Geração de token OAuth JWT para controle das requisições, mantenho o usuario no payload pra uso nas seguintes requisições
-
-Swagger UI - (Para documentar e testes de integração)
-
-O projeto foi estruturado no padrão repository.
-
-Microsoft SQL Server
+_**Para testes foi utilizado as seguintes dependencias**_
+ 
+1. **JUnit**
+2. **Mockito**
+3. **Banco H2**
