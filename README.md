@@ -5,6 +5,8 @@ Para iniciar o projeto basta rodar na pasta raiz do projeto:
 ```docker
 docker-compose -f .\docker-compose\docker-compose.yml up 
 ```
+Em casos de erro na inicialização do banco de dados
+Rodar o script de init.sql direto na instancia ou recriar os arquivos './sh' que estão na pasta docker-compose/database, aparentemente quando o Intellij pega o projeto, vem num enconding errado.
 
 Acesse o endpoint para documentação:
 
