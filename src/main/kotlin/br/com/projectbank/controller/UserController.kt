@@ -10,8 +10,4 @@ import org.springframework.web.bind.annotation.*
 class UserController(
     private val userService : UserService
 
-) {
-
-
-
-}
+)

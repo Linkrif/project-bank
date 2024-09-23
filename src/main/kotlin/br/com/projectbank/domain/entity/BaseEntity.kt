@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass
 abstract class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null) : Serializable {
+    var id: Long? = null) : Serializable {
 
     @CreationTimestamp
     private lateinit var createdAt: LocalDateTime

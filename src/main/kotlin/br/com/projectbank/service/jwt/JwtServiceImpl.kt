@@ -19,7 +19,6 @@ import java.time.Duration
 import java.time.Instant
 
 @Service
-
 class JwtServiceImpl : JwtService {
     @Value("\${jwt.token-secret}")
     val tokenSecret: String = ""
@@ -27,7 +26,7 @@ class JwtServiceImpl : JwtService {
         val expiresAt = Instant.now().plusMillis(Duration.ofHours(TOKEN_EXPIRATION_HOURS).toMillis())
         val token: String = JWT.create()
             .withSubject(user.getId().toString())
-            .withExpiresAt(expiresAt)
+             .withExpiresAt(expiresAt)
             .withClaim("roles", user.roles.map { it.toString() })
             .sign(Algorithm.HMAC512(tokenSecret.toByteArray()))
         val dto = UserAuthDto()

@@ -4,6 +4,7 @@ import br.com.projectbank.domain.form.BalanceForm
 import br.com.projectbank.pojo.BalancePojo
 import br.com.projectbank.service.balance.BalanceService
 import br.com.projectbank.constants.ConstantDataManager
+import br.com.projectbank.exception.StandardException
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Description
@@ -26,7 +27,12 @@ class BalanceController {
 
     @Operation(summary = "Endpoint para adicionar saldo a conta.")
     fun addBalance(@RequestBody form : @Valid BalanceForm) : ResponseEntity<BalancePojo>{
-        return ResponseEntity.status(HttpStatus.CREATED).body(balanceService.addBalance(form))
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(balanceService.addBalance(form))
+        }catch (e : Exception) {
+            throw StandardException("Erro para adicionar saldo.","RECUSADO", HttpStatus.BAD_REQUEST)
+        }
+
     }
 
 

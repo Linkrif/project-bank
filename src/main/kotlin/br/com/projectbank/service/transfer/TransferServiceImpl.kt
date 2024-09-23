@@ -9,7 +9,6 @@ import br.com.projectbank.pojo.TransferPojo
 import br.com.projectbank.repository.ClientRepository
 import br.com.projectbank.repository.TransferRepository
 import br.com.projectbank.repository.UserRepository
-import br.com.projectbank.seeder.DefaultSeeder
 import br.com.projectbank.utils.security.PrincipalUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

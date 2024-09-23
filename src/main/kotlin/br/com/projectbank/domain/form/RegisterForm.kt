@@ -6,7 +6,6 @@ import br.com.projectbank.utils.AgeUtils
 import io.swagger.v3.oas.annotations.Parameter
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.NotBlank
-import org.springframework.beans.factory.annotation.Required
 import org.springframework.http.HttpStatus
 import java.time.LocalDate
 

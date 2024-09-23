@@ -34,9 +34,14 @@ class RegisterServiceImpl : RegisterService{
 
     val log: Logger = LoggerFactory.getLogger(this::class.java)
     override fun register(form: RegisterForm): UserAuthDto {
-        checkUserName(form.cpf)
-        val user: User = createNewUser(form)
-        return jwtService.generateUserAuth(user)
+        try {
+            checkUserName(form.cpf)
+            val user: User = createNewUser(form)
+            return jwtService.generateUserAuth(user)
+        } catch (e : StandardException){
+            throw e
+        }
+
     }
 
     private fun createNewUser(form: RegisterForm): User {

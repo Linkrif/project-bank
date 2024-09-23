@@ -1,6 +1,5 @@
 package br.com.projectbank.domain.entity
 
-import org.hibernate.validator.constraints.br.CNPJ
 import org.hibernate.validator.constraints.br.CPF
 import java.math.BigDecimal
 import java.time.LocalDate
